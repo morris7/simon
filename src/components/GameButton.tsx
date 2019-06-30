@@ -1,16 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
+import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
+import * as GameButtonActions from '../actions/gameButton'
 
 const GameButton = (props: GameButtonProps) => (
-    <StyledGameButton colour={props.colour}></StyledGameButton>
+    <StyledGameButton colour={props.colour}
+        onClick={props.action.incrementScore }/>
 );
 
 interface GameButtonProps{
-    colour: string
+    colour: string,
+    action: any
 }
 
 interface StyleProps {
-    colour: string
+    colour: string,
+    onClick: any
 }
 
 const StyledGameButton = styled.button`
@@ -26,4 +32,11 @@ const StyledGameButton = styled.button`
     }
 `;
 
-export default GameButton;
+
+function mapDispatchToProps(dispatch:any) {
+    return {
+        action: bindActionCreators(GameButtonActions, dispatch)
+    }
+}
+
+export default connect(null, mapDispatchToProps)(GameButton);
