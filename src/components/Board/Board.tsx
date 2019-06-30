@@ -2,20 +2,31 @@ import React, {Component} from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 
-import {GAME_SIZE} from '../../constants';
+import {GAME_SIZE, GAME_BUTTON_COUNT,YELLOW, BLUE, GREEN, RED} from '../../constants';
 import GameButton from '../GameButton';
+import { bindActionCreators } from 'redux';
+import * as GameControlActions from '../../actions/gameControl';
+import { sequenceExpression } from '@babel/types';
 
 
 class Board extends Component<BoardProps> {
 
+    componentDidMount(){
+        setInterval(() =>{this.props.action.startGame()}, 2000)
+    }
+
     render(){
-        let {score} = this.props;
+        console.log(this.props);
+        
+        let {score, action, sequence} = this.props;
+
         return (
             <StyledBoard>
-                <GameButton colour="yellow"/>
-                <GameButton colour="blue"/>
-                <GameButton colour="red"/>
-                <GameButton colour="green"/>
+                <GameButton colour={YELLOW} className={sequence[0] === 1 ? 'active' : ''}/>
+                <GameButton colour={BLUE} className={sequence[1] === 1 ? 'active' : ''}/>
+                <GameButton colour={RED} className={sequence[2] === 1 ? 'active' : ''}/>
+                <GameButton colour={GREEN} className={sequence[3] === 1 ? 'active' : ''}/>
+                <button onClick={action.startGame}>Start Game</button>
                 <span className="score">Current score: {score}</span>
             </StyledBoard>
         )
@@ -23,7 +34,9 @@ class Board extends Component<BoardProps> {
 }
 
 interface BoardProps {
-    score: number
+    score: number,
+    action: any,
+    sequence: any
 };
 
 const StyledBoard = styled.div`
@@ -38,9 +51,15 @@ const StyledBoard = styled.div`
 
 function mapStateToProps(state: any, prop: any) {
     return {
-        score: state.game.score
+        score: state.game.score,
+        sequence: state.game.sequence
     }
 }
 
+function mapDispatchToProps(dispatch:any){
+    return  {
+        action: bindActionCreators(GameControlActions, dispatch)
+    }
+}
 
-export default connect(mapStateToProps)(Board);
+export default connect(mapStateToProps, mapDispatchToProps)(Board);

@@ -1,4 +1,4 @@
-export const incrementScore = (score:any) => {
+export const incrementScore = () => {
     return {
         type: 'incrementScore',
         score: 1

@@ -6,12 +6,14 @@ import * as GameButtonActions from '../actions/gameButton'
 
 const GameButton = (props: GameButtonProps) => (
     <StyledGameButton colour={props.colour}
-        onClick={props.action.incrementScore }/>
+        onClick={props.action.incrementScore }
+        className={props.className}/>
 );
 
 interface GameButtonProps{
     colour: string,
-    action: any
+    action: any,
+    className: string
 }
 
 interface StyleProps {
@@ -24,11 +26,14 @@ const StyledGameButton = styled.button`
     width: 40%;
     height: 40%;
     margin: 5%;
-    background-color: ${(props: StyleProps) => props.colour};
+    background-color: light${(props: StyleProps) => props.colour === 'red' ? 'pink': props.colour};
     box-shadow: 2px 2px #999;
     border-radius: 10px;
     &:focus, &:focus{
         outline: none;
+    }
+    &.active {
+        background-color: ${(props: StyleProps) => props.colour};
     }
 `;
 
