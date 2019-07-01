@@ -30,7 +30,6 @@ export default(state : GameState = initialState, action:any) => {
             
             return {...state, sequence:newSequence, level:newLevel, gameOver: newGameOver}
         case 'restartGame':
-            console.log('testttt')
                 newLevel = 0;
                 newSequence = [[0,0,0,0]];
                 newGameOver = false;
@@ -46,7 +45,7 @@ const initialState = {
     score: 0,
     sequence: [[0,0,0,0]],
     level: 0,
-    currentSequence: 1,
+    currentSequence: 0,
     gameOver: false
 }
 
