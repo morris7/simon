@@ -7,7 +7,7 @@ import {GameButtonProps, StyleProps} from './GameButton.types';
 
 const GameButton = (props: GameButtonProps) => (
     <StyledGameButton colour={props.colour}
-        onClick={props.action.incrementScore }
+        onClick={() => props.action.gameButtonClick(props.colour) }
         className={props.className}/>
 );
 

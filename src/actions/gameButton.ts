@@ -1,6 +1,6 @@
-export const incrementScore = () => {
+export const gameButtonClick = (colour:string) => {
     return {
-        type: 'incrementScore',
-        score: 1
+        type: 'gameButtonClick',
+        colourClicked: colour
     }
 }
