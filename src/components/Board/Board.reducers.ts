@@ -1,4 +1,4 @@
-import {GAME_BUTTON_COUNT} from '../constants'
+import {GAME_BUTTON_COUNT} from '../../constants'
 
 export default(state : GameState = initialState, action:any) => {
     switch(action.type){

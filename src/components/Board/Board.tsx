@@ -1,23 +1,32 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
 
-import {GAME_SIZE, GAME_BUTTON_COUNT,YELLOW, BLUE, GREEN, RED} from '../../constants';
-import GameButton from '../GameButton';
-import { bindActionCreators } from 'redux';
-import * as GameControlActions from '../../actions/gameControl';
-import { sequenceExpression } from '@babel/types';
+import {GAME_SIZE, GAME_BUTTON_COUNT, YELLOW, BLUE, GREEN, RED} from '../../constants';
+import GameButton from '../GameButton/GameButton';
+import {BoardProps} from './Board.types';
 import {BEEP} from '../../constants';
 
 
-class Board extends Component<BoardProps> {
+export default class Board extends Component<BoardProps> {
+    constructor(props: BoardProps){
+        super(props);
 
-    componentDidMount(){
+        this.startGame = this.startGame.bind(this);
+        this.gameTick = this.gameTick.bind(this);
+    }
+
+    startGame(){
+        this.gameTick();
+
         setInterval(() =>{
-            this.props.action.startGame()
-            const sound = new Audio(BEEP);
-            sound.play();
-        }, 2000)
+            this.gameTick()
+        }, 2000);
+    }
+
+    gameTick(){
+        this.props.action.startGame();
+        const sound = new Audio(BEEP);
+        sound.play();
     }
 
     render(){
@@ -33,20 +42,13 @@ class Board extends Component<BoardProps> {
                     <GameButton colour={BLUE} className={currentLevelsSequence[1] === 1 ? 'active' : ''}/>
                     <GameButton colour={RED} className={currentLevelsSequence[2] === 1 ? 'active' : ''}/>
                     <GameButton colour={GREEN} className={currentLevelsSequence[3] === 1 ? 'active' : ''}/>
-                    <StyledDiv><button onClick={action.startGame}>Start Game</button></StyledDiv>
+                    <StyledDiv><button onClick={this.startGame}>Start Game</button></StyledDiv>
                     <StyledDiv className="score">Current score: {score}</StyledDiv>
                 </StyledBoard>
             </>
         );
     }
 }
-
-interface BoardProps {
-    score: number,
-    action: any,
-    sequence: any,
-    level: number
-};
 
 const StyledBoard = styled.div`
     display: flex;
@@ -63,19 +65,3 @@ const StyledDiv = styled.div`
     margin: auto;   
     width: ${GAME_SIZE};
 `
-
-function mapStateToProps(state: any, prop: any) {
-    return {
-        score: state.game.score,
-        sequence: state.game.sequence,
-        level: state.game.level
-    }
-}
-
-function mapDispatchToProps(dispatch:any){
-    return  {
-        action: bindActionCreators(GameControlActions, dispatch)
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Board);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';
-import Board from './components/Board/Board';
+import Board from './components/Board/Index';
 import {Provider} from 'react-redux';
 import Store from './store';
 
@@ -10,7 +10,7 @@ function App() {
   return (
     <Provider store={StoreInstance}>
       <div className="App">
-        <Board score={1}/>
+        <Board />
         <GlobalStyle/>
       </div>
     </Provider>

@@ -2,25 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
-import * as GameButtonActions from '../actions/gameButton'
+import * as GameButtonActions from '../../actions/gameButton';
+import {GameButtonProps, StyleProps} from './GameButton.types';
 
 const GameButton = (props: GameButtonProps) => (
     <StyledGameButton colour={props.colour}
         onClick={props.action.incrementScore }
         className={props.className}/>
 );
-
-interface GameButtonProps{
-    colour: string,
-    action: any,
-    className: string
-}
-
-interface StyleProps {
-    colour: string,
-    onClick: any,
-    className: string
-}
 
 const StyledGameButton = styled.button`
     display: flex;
