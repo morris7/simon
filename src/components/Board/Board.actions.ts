@@ -3,3 +3,9 @@ export const startGame = () => {
         type: 'startGame'
     }
 }
+
+export const restartGame = (colour:string) => {
+    return {
+        type: 'restartGame'
+    }
+}

@@ -8,7 +8,8 @@ function mapStateToProps(state: any, prop: BoardProps) {
     return {
         score: state.game.score,
         sequence: state.game.sequence,
-        level: state.game.level
+        level: state.game.level,
+        gameOver: state.game.gameOver
     }
 }
 
