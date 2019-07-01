@@ -18,7 +18,8 @@ interface GameButtonProps{
 
 interface StyleProps {
     colour: string,
-    onClick: any
+    onClick: any,
+    className: string
 }
 
 const StyledGameButton = styled.button`
@@ -32,8 +33,12 @@ const StyledGameButton = styled.button`
     &:focus, &:focus{
         outline: none;
     }
+    transform: scale(1);
+    transition-duration: 1s;
     &.active {
         background-color: ${(props: StyleProps) => props.colour};
+        transform: scale(1.1);
+        transition-duration: 1s;
     }
 `;
 
